@@ -1,3 +1,9 @@
+var randomNumber = function () {
+  var value = Math.floor(Math.random() * 21) + 40;
+
+  return value;
+};
+
 var fight = function(enemy) {
     while (playerInfo.health > 0 && enemy.health > 0) {
       // ask player if they'd like to fight or run
@@ -44,7 +50,7 @@ var fight = function(enemy) {
      
       playerInfo.health = Math.max(0, playerInfo.health - damage);
       console.log(
-        enemy.name + ' attacked ' + playerInfonName + '. ' + playerInfo.name + ' now has ' + playerInfo.health + ' health remaining.'
+        enemy.name + ' attacked ' + playerInfo.name + '. ' + playerInfo.name + ' now has ' + playerInfo.health + ' health remaining.'
       );
   
       // check player's health
@@ -62,14 +68,14 @@ var startGame = function() {
     playerInfo.reset();
     for(var i = 0; i < enemyInfo.length; i++) {
 
-      if (playerInfo.honey > 0) {
+      if (playerInfo.health > 0) {
         window.alert('Welcome to Robot Gladiators! Round ' + ( i + 1) );
 
         var pickedEnemyObj = enemyInfo[i];
 
         pickedEnemyObj.health = randomNumber(40, 60);
 
-        fight(pickedEnemyobj);
+        fight(pickedEnemyObj);
 
         if (playerInfo.honey > 0 && i < enemyInfo.length - 1) {
             var storeConfirm = window.confirm("The The fight is over, visit the store before the next round?");
@@ -81,7 +87,7 @@ var startGame = function() {
       }
 
       else {
-          window.alert("You have lost your robot in battle! Gamde Over!");
+          window.alert("You have lost your robot in battle! Game Over!");
           break;
       }
   }
@@ -136,14 +142,19 @@ var shop = function() {
 
 };
 
-var randomNumber = function () {
-  var value = Math.floor(Math.random() * 21) + 40;
+var getPlayerName = function () {
+  var name = "";
 
-  return value;
+  while (name === "" || name === null) {
+    name = prompt("What is your robot's name?");
+  }
+
+  console.log("Your robot's name is " + name);
+  return name;
 };
 
 var playerInfo =  {
-  name: window.prompt("What is your Robot's name?"),
+  name: getPlayerName(),
   health: 100,
   attack: 10,
   money: 10,
@@ -188,5 +199,10 @@ var enemyInfo = [
     attack: randomNumber(10, 14)
   }
 ];
+
+console.log(enemyInfo);
+console.log(enemyInfo[0]);
+console.log(enemyInfo[0].name);
+console.log(enemyInfo[0]['attack']);
 
 startGame();
